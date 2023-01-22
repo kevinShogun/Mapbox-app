@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import {
 	Avatar,
 	Button,
+	Link,
 	List,
 	ListItem,
 	ListItemAvatar,
@@ -15,9 +16,10 @@ import AssistantDirectionIcon from "@mui/icons-material/AssistantDirection";
 import { Feature } from "../interfaces/places";
 
 export const SearchResult = () => {
-	const { isLoadingPlaces, places } = useContext(PlacesContext);
-	const { map } = useContext(MapContext);
+	const { isLoadingPlaces, places, userLocation } = useContext(PlacesContext);
+	const { map, getRouteBetweenPoints } = useContext(MapContext);
 	const [activePlaceId, setActivePlaceId] = useState("");
+	const [isShow, setIsShow] = useState(true);
 
 	const onClickPlace = (place: Feature) => {
 		const [lng, lat] = place.center;
@@ -27,6 +29,13 @@ export const SearchResult = () => {
 			zoom: 16,
 			center: [lng, lat],
 		});
+		
+	};
+
+	const getRoute = (place: Feature) => {
+		if (!userLocation) return;
+		const [lng, lat] = place.center;
+		getRouteBetweenPoints(userLocation, [lng, lat]);
 	};
 
 	if (isLoadingPlaces) {
@@ -75,61 +84,79 @@ export const SearchResult = () => {
 	}
 
 	return (
-		<List
-			sx={{
-				width: "100%",
-				maxWidth: 310,
-				bgcolor: "background.paper",
-				display: "flex",
-				flexDirection: "column",
-				height: 430,
-				overflow: "hidden",
-				overflowY: "scroll",
-				borderRadius: "8px",
-			}}
-		>
-			{places.map((p, index) => (
-				<div
-					style={{
+		<div>
+			<Link
+				component="button"
+				variant="body2"
+				onClick={() => {
+					setIsShow(!isShow);
+				}}
+				sx={{
+					marginLeft: "45px",
+					marginBottom: "10px"
+				}}
+			>
+				{!isShow ? 'Mostrar' : 'Ocultar'} Resultados
+			</Link>
+
+			{isShow && (
+				<List
+					sx={{
+						width: "100%",
+						maxWidth: 310,
+						bgcolor: "background.paper",
 						display: "flex",
 						flexDirection: "column",
+						height: 430,
+						overflow: "hidden",
+						overflowY: "scroll",
+						borderRadius: "8px",
 					}}
-					key={p.id}
 				>
-					<ListItem
-						sx={{
-							cursor: "pointer",
-							"&:hover": {
-								border: "1px solid #ccc",
-								color: "gray",
-								background: "rgba(0,0,0,0.1)",
-							},
-							background: p.id === activePlaceId ? "#82b1ff" : "",
-						}}
-						onClick={() => onClickPlace(p)}
-					>
-						<ListItemAvatar>
-							<Avatar>
-								<ExploreIcon />
-							</Avatar>
-						</ListItemAvatar>
-						<ListItemText primary={`${p.text}`} secondary={p.place_name} />
-					</ListItem>
-					<Button
-						color="primary"
-						disabled={false}
-						size="small"
-						onClick={function () {}}
-						variant="outlined"
-						endIcon={<AssistantDirectionIcon />}
-						sx={{
-							margin: "5px 10px",
-						}}
-					>
-						Direcciones
-					</Button>
-				</div>
-			))}
-		</List>
+					{places.map((p, index) => (
+						<div
+							style={{
+								display: "flex",
+								flexDirection: "column",
+							}}
+							key={p.id}
+						>
+							<ListItem
+								sx={{
+									cursor: "pointer",
+									"&:hover": {
+										border: "1px solid #ccc",
+										color: "gray",
+										background: "rgba(0,0,0,0.1)",
+									},
+									background: p.id === activePlaceId ? "#82b1ff" : "",
+								}}
+								onClick={() => onClickPlace(p)}
+							>
+								<ListItemAvatar>
+									<Avatar>
+										<ExploreIcon />
+									</Avatar>
+								</ListItemAvatar>
+								<ListItemText primary={`${p.text}`} secondary={p.place_name} />
+							</ListItem>
+							<Button
+								color="primary"
+								disabled={false}
+								size="small"
+								onClick={() => getRoute(p)}
+								variant="outlined"
+								endIcon={<AssistantDirectionIcon />}
+								sx={{
+									margin: "5px 10px",
+								}}
+							>
+								Direcciones
+							</Button>
+						</div>
+					))}
+				</List>
+			)}
+		</div>
 	);
 };
