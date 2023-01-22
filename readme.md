@@ -1,7 +1,9 @@
 # Mapbox App
 
-## Main url [https://calendar-app-backend-production-32a4.up.railway.app]
+## Main url [https://mapbox-app.up.railway.app]
 [Railway](https://railway.app/)
+
+<img height="500" src="https://res.cloudinary.com/devsing/image/upload/v1674424704/Map_box_app_xtfivy.png"/>
 
 ### La aplicación web desarrollada en ReactJS utiliza Context API para el manejo de estado compartido en la aplicación, Axios para la realización de peticiones HTTP, TypeScript para el tipado estricto del código y Material UI como librería de estilos. Además, se ha implementado el uso de animaciones mediante Lottie para mejorar la experiencia del usuario. La funcionalidad principal de la aplicación es la generación de rutas de viaje en base a un destino seleccionado por el usuario utilizando la plataforma de geolocalización Mapbox para determinar la ubicación del destino seleccionado en relación a la ubicación actual del usuario. Además, cuenta con la implementación de Continuous Deployment mediante la plataforma Railway.
 <br>
