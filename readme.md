@@ -1,7 +1,6 @@
 # Mapbox App
 
-## Main url [https://mapbox-app.up.railway.app]
-[Railway](https://railway.app/)
+## Main url [https://kevin-map-box-app.netlify.app/]
 
 <img height="500" src="https://res.cloudinary.com/devsing/image/upload/v1674424704/Map_box_app_xtfivy.png"/>
 
