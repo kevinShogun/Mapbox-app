@@ -22,12 +22,14 @@ export interface MapState {
 	map?: Map;
 	markers: Marker[];
 	details: Details;
+	markerRadius: number;
 }
 
 const INITIAL_STATE: MapState = {
 	isMapReady: false,
 	map: undefined,
 	markers: [],
+	markerRadius: 15,
 	details: {
 		kms: 0,
 		minutes: 0,
@@ -181,11 +183,19 @@ export const MapProvider = ({ children }: MapProviderProps) => {
 
 	};
 
+	const setMarkerRadius = (radius: number) => {
+		dispatch({
+			type: "setMarkerRadius",
+			payload: radius,
+		});
+	};
+
 	return (
 		<MapContext.Provider
 			value={{
 				...state,
 				setMap,
+				setMarkerRadius,
 				getRouteBetweenPoints,
 			}}
 		>

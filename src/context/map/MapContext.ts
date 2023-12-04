@@ -9,7 +9,9 @@ interface MapContextProp {
     // Methods
     setMap: (map: Map) => void;
     getRouteBetweenPoints: (start: [number, number], end: [number, number]) => Promise<void>
-    details: Details
+    details: Details;
+    markerRadius: number;
+    setMarkerRadius: (radius: number) => void;
 }
 
 export const MapContext = createContext({} as MapContextProp);

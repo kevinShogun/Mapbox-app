@@ -1,15 +1,20 @@
-import { ChangeEvent, useContext, useRef } from "react";
+import { ChangeEvent, useContext, useRef, useState } from "react";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import ClearIcon from '@mui/icons-material/Clear';
 import { PlacesContext } from "../context";
 import { SearchResult } from "./SearchResult";
+import { Box, IconButton } from "@mui/material";
+import { SliderOptions } from "./SliderOptions";
 
 export const SearchBar = () => {
 	const debounceRef = useRef<NodeJS.Timeout>();
 
 	const { searchPlacesByQuery, places } = useContext(PlacesContext);
+	const [search, setSearch] = useState("")
 
 	const onQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
+		setSearch(e.target.value);
 		if (debounceRef.current) {
 			clearTimeout(debounceRef.current);
 		}
@@ -21,49 +26,69 @@ export const SearchBar = () => {
 	};
 
 	return (
-		<div
-			style={{
+		<Box
+			sx={{
 				position: "fixed",
-				top: "80px",
-				left: "30px",
+				top: "50px",
+				right: "30px",
+				"@media (max-width: 600px)": {
+					top: "20px",
+					right: "10px",
+				},
 				boxShadow: places.length > 0 ? "0px 5px 10px rgba(0, 0, 0, 0.2)" : "",
 				borderRadius: places.length > 0 ? "10px" : "",
+				padding: places.length > 0 ? "10px" : "",
 				background: places.length > 0 ? "#fff" : "",
-				transition: "all",
-				transitionDuration: "1s",
-				transitionTimingFunction: "ease-in-out",
+				transition: "all 0.2s ease-in-out",
 			}}
 		>
-			<br />
-			<div
-				style={{
-					padding: "8px 25px",
+			<Box
+				sx={{
+					width: "530px",
+					padding: "8px 13px",
+					"@media (max-width: 600px)": {
+						width: "300px",
+					},
 					display: "flex",
+					flexDirection: "row-reverse",
 					alignItems: "center",
 					color: "#aaa",
 					boxShadow:
 						places.length === 0 ? "0px 5px 10px rgba(0, 0, 0, 0.2)" : "",
-					borderRadius: places.length === 0 ? "10px" : "",
-					background: places.length === 0 ? "#fff" : "",
-					transition: "all",
-					transitionDuration: "1s",
-					transitionTimingFunction: "linear",
+					border: "2px solid #c7d4dc",
+					background: "#fff",
+					transition: "all 0.2s ease-in-out",
 				}}
 			>
-				<SearchIcon
-					style={{
-						margin: "0 5px",
+				<IconButton 
+					onClick={() => {
+						if (search.length > 0) {
+							setSearch("");
+							searchPlacesByQuery("");
+						}
 					}}
-				/>
+				>
+					{
+						search.length <= 0 ? (
+							<SearchIcon />
+						) : (
+							<ClearIcon />
+						)
+					}
+				</IconButton>
 				<InputBase
 					style={{
 						color: "#aaa",
+						width: "100%",
 					}}
-					placeholder="Buscar un lugar"
+					placeholder="Adress"
+					value={search}
 					onChange={onQueryChange}
 				/>
-			</div>
+			</Box>
+			<SliderOptions/>
+
 			<SearchResult />
-		</div>
+		</Box>
 	);
 };

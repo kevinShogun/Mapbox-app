@@ -4,7 +4,6 @@ import { styled } from "@mui/material/styles";
 export const IsLoading = () => {
 	const CircularProg = styled(CircularProgress)<CircularProgressProps>(
 		({ theme }) => ({
-			color: green[400],
             width: 200,
 		})
 	);
@@ -17,7 +16,7 @@ export const IsLoading = () => {
 				position: "fixed",
 				top: 0,
 				right: 0,
-				backgroundColor: "rgba(0, 0, 0, 0.8)",
+				backgroundColor: "rgba(0, 0, 0, 0.6)",
 				display: "flex",
 				justifyContent: "center",
 				zIndex: 1,
@@ -32,6 +31,7 @@ export const IsLoading = () => {
 				<CircularProg
                     thickness={4.5}
                     size="7rem"
+					color="secondary"
                 />
 			</div>
 		</div>

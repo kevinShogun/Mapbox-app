@@ -23,6 +23,20 @@ export const DetailsRoute = () => {
 		}
 	};
 
+	function convertMinutesHours(min: number) {
+		if (min < 60) {
+		  return `${min} mins`;
+		} else {
+		  const hours = Math.floor(min / 60);
+		  const minRestantes = min % 60;
+		  if (minRestantes === 0) {
+			return `${hours} h`;
+		  } else {
+			return `${hours} h ${minRestantes} mins`;
+		  }
+		}
+	  }
+
 	return details.isShow ? (
 		<div
 			style={{
@@ -30,6 +44,7 @@ export const DetailsRoute = () => {
 				bottom: "80px",
 				left: "20px",
 				borderRadius: "10px",
+				fontSize: "14px",
 				background: "#fff",
 				transition: "all",
 				transitionDuration: "1s",
@@ -43,22 +58,22 @@ export const DetailsRoute = () => {
 					aria-controls="panel1a-content"
 					id="panel1a-header"
 				>
-					<Typography>Detalles del viaje</Typography>
+					<Typography>Trip details</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
 					<Lottie animationData={cardDrive} />
 					<br />
 					<b>
-						Distancia:{" "}
+					Distance:{" "}
 						<span style={{ color: setColor(details.kms) }}>
-							{details.kms} km
+							{details.kms } km
 						</span>
 					</b>
 					<br />
 					<b>
-						Tiempo estimado:{" "}
+					Estimated time:{" "}
 						<span style={{ color: setColor(details.minutes) }}>
-							{details.minutes} min
+							{convertMinutesHours(details.minutes)}
 						</span>{" "}
 					</b>
 				</AccordionDetails>

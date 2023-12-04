@@ -1,4 +1,4 @@
-import { BtnMylocation, LogoImages, MapView, SearchBar } from "../components"
+import { MapView, SearchBar } from "../components"
 import { DetailsRoute } from "../components/DetailsRoute"
 
 export const HomeScreen = () => {
@@ -6,8 +6,6 @@ export const HomeScreen = () => {
     <div>
         <MapView/>
         <SearchBar/>
-        <BtnMylocation/>
-        <LogoImages/>
         <DetailsRoute/>
     </div>
   )

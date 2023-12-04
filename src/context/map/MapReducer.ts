@@ -5,7 +5,8 @@ import { Details, MapState } from "./MapProvider";
 type MapAction =
 	| { type: "setMap"; payload: Map }
 	| { type: "setMarkers"; payload: Marker[] }
-	| { type: "setDetails"; payload: Details };
+	| { type: "setDetails"; payload: Details }
+	| { type: "setMarkerRadius"; payload: number};
 
 export const mapReducer = (state: MapState, action: MapAction): MapState => {
 	switch (action.type) {
@@ -24,6 +25,11 @@ export const mapReducer = (state: MapState, action: MapAction): MapState => {
 			return {
 				...state,
 				details: action.payload,
+			};
+		case "setMarkerRadius":
+			return {
+				...state,
+				markerRadius: action.payload,
 			};
 		default:
 			return state;

@@ -12,7 +12,7 @@ import ExploreIcon from "@mui/icons-material/Explore";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import { MapContext, PlacesContext } from "../context";
 import { Container } from "@mui/system";
-import AssistantDirectionIcon from "@mui/icons-material/AssistantDirection";
+import DirectionsOutlinedIcon from '@mui/icons-material/DirectionsOutlined';
 import { Feature } from "../interfaces/places";
 
 export const SearchResult = () => {
@@ -29,7 +29,7 @@ export const SearchResult = () => {
 			zoom: 16,
 			center: [lng, lat],
 		});
-		
+
 	};
 
 	const getRoute = (place: Feature) => {
@@ -48,11 +48,13 @@ export const SearchResult = () => {
 					borderBottomRightRadius: "8px",
 					color: "#555",
 					textAlign: "center",
+					transition: "all 0.2s ease-in-out",
+
 				}}
 			>
 				<div
 					style={{
-						background: "rgba(0,0,0,0.1)",
+						background: "#fff",
 						padding: "8px 20px",
 						borderBottomLeftRadius: "8px",
 						borderBottomRightRadius: "8px",
@@ -60,6 +62,8 @@ export const SearchResult = () => {
 						justifyContent: "center",
 						alignItems: "center",
 						flexDirection: "column",
+						transition: "all 0.2s ease-in-out",
+
 					}}
 				>
 					<div
@@ -69,11 +73,11 @@ export const SearchResult = () => {
 							alignItems: "center",
 						}}
 					>
-						<p>Buscando lugares</p>
+						<p>Searching for places</p>
 						&nbsp;
 						<TravelExploreIcon />
 					</div>
-					Espere por favor...
+					Please wait...
 				</div>
 			</div>
 		);
@@ -92,25 +96,29 @@ export const SearchResult = () => {
 					setIsShow(!isShow);
 				}}
 				sx={{
-					marginLeft: "45px",
-					marginBottom: "10px"
+					marginLeft: "5px",
+					marginBottom: "1px",
+					marginTop: "8px"
 				}}
 			>
-				{!isShow ? 'Mostrar' : 'Ocultar'} Resultados
+				{!isShow ? 'Show' : 'Hide'} results
 			</Link>
 
 			{isShow && (
 				<List
 					sx={{
 						width: "100%",
-						maxWidth: 310,
+						maxWidth: 530,
+						"@media (max-width: 600px)": {
+							width: "300px",
+	
+						},
 						bgcolor: "background.paper",
 						display: "flex",
 						flexDirection: "column",
 						height: 430,
 						overflow: "hidden",
 						overflowY: "scroll",
-						borderRadius: "8px",
 					}}
 				>
 					{places.map((p, index) => (
@@ -123,13 +131,15 @@ export const SearchResult = () => {
 						>
 							<ListItem
 								sx={{
+									width: "100%",
 									cursor: "pointer",
+									borderRadius: "5px",
+									transition: "all 0.2s ease-in-out",
+									margin: "5px 10px",
 									"&:hover": {
-										border: "1px solid #ccc",
-										color: "gray",
 										background: "rgba(0,0,0,0.1)",
 									},
-									background: p.id === activePlaceId ? "#82b1ff" : "",
+									background: p.id === activePlaceId ? "#aae3f4a0" : "",
 								}}
 								onClick={() => onClickPlace(p)}
 							>
@@ -138,7 +148,19 @@ export const SearchResult = () => {
 										<ExploreIcon />
 									</Avatar>
 								</ListItemAvatar>
-								<ListItemText primary={`${p.text}`} secondary={p.place_name} />
+								<ListItemText
+									primary={`${p.text}`}
+									secondary={p.place_name}
+									sx={{
+										'& .MuiListItemText-primary': {
+											fontWeight: 'medium',
+										},
+										'& .MuiListItemText-secondary': {
+											fontSize: '12px',
+											color: '#555',
+										},
+									}}
+								/>
 							</ListItem>
 							<Button
 								color="primary"
@@ -146,12 +168,12 @@ export const SearchResult = () => {
 								size="small"
 								onClick={() => getRoute(p)}
 								variant="outlined"
-								endIcon={<AssistantDirectionIcon />}
+								endIcon={<DirectionsOutlinedIcon />}
 								sx={{
 									margin: "5px 10px",
 								}}
 							>
-								Direcciones
+								Go to
 							</Button>
 						</div>
 					))}
