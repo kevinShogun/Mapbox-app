@@ -1,12 +1,12 @@
-import type { Config, Context } from "@netlify/edge-functions";
+import { Context, Config } from "@netlify/edge-functions";
 
 export default async (request: Request, context: Context) => {
-
+  
   return Response.json({
     geo: context.geo,
   });
 };
 
 export const config: Config = {
-  path: "/geo",
+	path: "/geo",
 };

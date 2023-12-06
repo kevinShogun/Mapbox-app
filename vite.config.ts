@@ -59,4 +59,13 @@ export default defineConfig({
 			},
 		}),
 	],
+	server: {
+		proxy: {
+			"/geo": {
+				target: "http://localhost:8888/geo",
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/geo/, ""),
+			},
+		},
+	}
 });

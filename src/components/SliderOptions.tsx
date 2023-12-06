@@ -15,6 +15,9 @@ export const SliderOptions = () => {
 
     return (
         <Box
+            // block drag event
+            onDragStart={(e) => e.preventDefault()}
+            
             display='flex'
             justifyContent='space-between'
             alignItems='center'
