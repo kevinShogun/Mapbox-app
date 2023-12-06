@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
 	Avatar,
 	Button,
@@ -20,6 +20,7 @@ export const SearchResult = () => {
 	const { map, getRouteBetweenPoints } = useContext(MapContext);
 	const [activePlaceId, setActivePlaceId] = useState("");
 	const [isShow, setIsShow] = useState(true);
+	const divClikRef = useRef<any>(null);
 
 	const onClickPlace = (place: Feature) => {
 		const [lng, lat] = place.center;
@@ -29,13 +30,35 @@ export const SearchResult = () => {
 			zoom: 16,
 			center: [lng, lat],
 		});
-
 	};
+
+	useEffect(() => {
+		if (places.length > 0 && !isLoadingPlaces) {
+			// click first place
+			const divClick = document.getElementById(places[0].id + " list-item");
+			if (divClick) {
+				divClick.click();
+			}
+			const [lng, lat] = places[0].center;
+			setActivePlaceId(places[0].id);
+			map?.flyTo({
+				zoom: 16,
+				center: [lng, lat],
+			});
+
+		}
+	}, [places])
+	
 
 	const getRoute = (place: Feature) => {
 		if (!userLocation) return;
 		const [lng, lat] = place.center;
+		map?.flyTo({
+			zoom: 16,
+			center: [lng, lat],
+		});
 		getRouteBetweenPoints(userLocation, [lng, lat]);
+		setActivePlaceId(place.id);
 	};
 
 	if (isLoadingPlaces) {
@@ -43,7 +66,7 @@ export const SearchResult = () => {
 			<div
 				style={{
 					fontWeight: "bold",
-					background: "#fff",
+					background: "#000",
 					borderBottomLeftRadius: "8px",
 					borderBottomRightRadius: "8px",
 					color: "#555",
@@ -51,6 +74,7 @@ export const SearchResult = () => {
 					transition: "all 0.2s ease-in-out",
 
 				}}
+				
 			>
 				<div
 					style={{
@@ -120,6 +144,12 @@ export const SearchResult = () => {
 						overflow: "hidden",
 						overflowY: "scroll",
 					}}
+					onMouseUp={() => {
+						console.log("mouseup")
+					}}
+					onMouseDown={() => {
+						console.log("mousedown")
+					}}
 				>
 					{places.map((p, index) => (
 						<div
@@ -141,6 +171,8 @@ export const SearchResult = () => {
 									},
 									background: p.id === activePlaceId ? "#aae3f4a0" : "",
 								}}
+								id={p.id + " list-item"}
+								ref={divClikRef}
 								onClick={() => onClickPlace(p)}
 							>
 								<ListItemAvatar>

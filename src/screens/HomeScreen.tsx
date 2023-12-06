@@ -1,11 +1,18 @@
 import { MapView, SearchBar } from "../components"
 import { DetailsRoute } from "../components/DetailsRoute"
+import DraggableDialog from "../components/DraggableDialog"
 
 export const HomeScreen = () => {
   return (
-    <div>
+    <div
+      style={{
+        height: "100vh",
+        width: "100%",
+        overflow: "hidden", // hide scrollbars
+      }}
+    >
         <MapView/>
-        <SearchBar/>
+        <DraggableDialog/>
         <DetailsRoute/>
     </div>
   )

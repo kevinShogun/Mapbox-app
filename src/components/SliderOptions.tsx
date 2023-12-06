@@ -13,8 +13,6 @@ export const SliderOptions = () => {
         setMarkerRadius(Number(e.target.value));
     }
 
-
-
     return (
         <Box
             display='flex'

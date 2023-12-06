@@ -54,13 +54,13 @@ export const MapView = () => {
 				}
 			}
 		}
-	}, [isLoading, markerRadius, setMap, userLocation]);
+	}, [isLoading, markerRadius]);
 
 	const calculateZoom = (radius: number | null | undefined) => {
 		if (radius && radius > 25) {
-			return 3; // Change this value to the desired zoom level when radius is greater than 25
+			return 5; // Change this value to the desired zoom level when radius is greater than 25
 		} else {
-			return 8; // Default zoom level when radius is less than or equal to 25
+			return 10; // Default zoom level when radius is less than or equal to 25
 		}
 	};
 

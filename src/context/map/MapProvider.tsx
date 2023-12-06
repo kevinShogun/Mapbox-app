@@ -29,7 +29,7 @@ const INITIAL_STATE: MapState = {
 	isMapReady: false,
 	map: undefined,
 	markers: [],
-	markerRadius: 15,
+	markerRadius: 5,
 	details: {
 		kms: 0,
 		minutes: 0,
@@ -140,7 +140,7 @@ export const MapProvider = ({ children }: MapProviderProps) => {
 		}
 
 		state.map?.fitBounds(bounds, {
-			padding: 100
+			padding: 200
 		});
 
 		// Polyline
@@ -180,7 +180,6 @@ export const MapProvider = ({ children }: MapProviderProps) => {
 				'line-width': 3,
 			}
 		})
-
 	};
 
 	const setMarkerRadius = (radius: number) => {
