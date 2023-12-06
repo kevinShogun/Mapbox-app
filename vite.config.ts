@@ -1,5 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import netlifyEdge from '@netlify/vite-plugin-netlify-edge'
+
 // import { VitePWA } from "vite-plugin-pwa";
 
 // // https://vitejs.dev/config/
@@ -58,14 +60,7 @@ export default defineConfig({
 				],
 			},
 		}),
+		netlifyEdge({ functionName: 'geo' })
 	],
-	server: {
-		proxy: {
-			'/.netlify/functions': {
-				target: 'http://localhost:8888', // Cambia el puerto si es necesario
-				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/\.netlify\/functions/, ''),
-			  },
-		},
-	}
+	
 });

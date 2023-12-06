@@ -18,6 +18,7 @@
     "@mui/material": "^5.11.3",
     "@mui/styled-engine-sc": "^5.11.0",
     "@netlify/functions": "^2.4.0",
+    "@netlify/vite-plugin-netlify-edge": "^1.1.3",
     "@turf/turf": "^6.5.0",
     "axios": "^1.2.2",
     "lottie-react": "^2.3.1",
