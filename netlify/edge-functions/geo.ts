@@ -21,9 +21,7 @@ export default async (request: Request, context: Context) => {
   //   }
   // }
 
-  return Response.json({
-    geo: context.geo,
-  });
+  return new Response(JSON.stringify(context.geo), {});
 };
 
 export const config: Config = {

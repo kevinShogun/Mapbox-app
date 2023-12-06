@@ -1,9 +1,9 @@
-
+import edgeFunction  from "../../netlify/edge-functions/geo";
 export const getUserLocation = async (): Promise<[number, number]> => {
 
 	const fetchGeolocation = async () => {
 		
-		const response = await fetch('/.netlify/functions/geo');
+		const response = await fetch('http://localhost:8888/geo');
         const data = await response.json();
 		console.log(data);
 
