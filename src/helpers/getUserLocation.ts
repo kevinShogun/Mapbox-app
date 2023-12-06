@@ -4,7 +4,7 @@ export const getUserLocation = async (): Promise<[number, number]> => {
 
 	const fetchGeolocation = async () => {
 		const response = await fetch("/.netlify/functions/geo");
-		const data = await response.json();
+		const data = await response.json(); // Parse the response as JSON
 		console.log(data);
 
 	};
