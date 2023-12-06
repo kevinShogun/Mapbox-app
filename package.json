@@ -17,6 +17,7 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.3",
     "@mui/styled-engine-sc": "^5.11.0",
+    "@netlify/functions": "^2.4.0",
     "@turf/turf": "^6.5.0",
     "axios": "^1.2.2",
     "lottie-react": "^2.3.1",

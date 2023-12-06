@@ -61,11 +61,11 @@ export default defineConfig({
 	],
 	server: {
 		proxy: {
-			"/geo": {
-				target: "http://localhost:8888/geo",
+			'/.netlify/functions': {
+				target: 'http://localhost:8888', // Cambia el puerto si es necesario
 				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/geo/, ""),
-			},
+				rewrite: (path) => path.replace(/^\/\.netlify\/functions/, ''),
+			  },
 		},
 	}
 });

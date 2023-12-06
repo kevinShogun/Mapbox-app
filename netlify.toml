@@ -5,3 +5,7 @@
 [[edge_functions]]
 function = "geo"
 path = "/test"
+
+[[edge_functions]]
+function = "geofunction"
+path = "/geo-example"
