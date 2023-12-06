@@ -11,7 +11,7 @@ export const getUserLocation = async (): Promise<[number, number]> => {
 		const json = await res.json();
 		console.log(json);
 
-		const res2 = await edgeFunction();
+		const res2 = await fetch("/geo");
 		const json2 = await res2.json();
 		console.log(json2);
 
