@@ -9,7 +9,7 @@ import { MapContext } from "../context";
 import cardDrive from "../assets/134193-red-car-drive.json";
 
 export const DetailsRoute = () => {
-	const { details } = useContext(MapContext);
+	const { details, typeDistance } = useContext(MapContext);
 
 	const setColor = (num: number) => {
 		if (num <= 40) {
@@ -25,17 +25,17 @@ export const DetailsRoute = () => {
 
 	function convertMinutesHours(min: number) {
 		if (min < 60) {
-		  return `${min} mins`;
+			return `${min} mins`;
 		} else {
-		  const hours = Math.floor(min / 60);
-		  const minRestantes = min % 60;
-		  if (minRestantes === 0) {
-			return `${hours} h`;
-		  } else {
-			return `${hours} h ${minRestantes} mins`;
-		  }
+			const hours = Math.floor(min / 60);
+			const minRestantes = min % 60;
+			if (minRestantes === 0) {
+				return `${hours} h`;
+			} else {
+				return `${hours} h ${minRestantes} mins`;
+			}
 		}
-	  }
+	}
 
 	return details.isShow ? (
 		<div
@@ -64,14 +64,20 @@ export const DetailsRoute = () => {
 					<Lottie animationData={cardDrive} />
 					<br />
 					<b>
-					Distance:{" "}
+						Distance:{" "}
 						<span style={{ color: setColor(details.kms) }}>
-							{details.kms } km
+							{
+								typeDistance === "km" ? (
+									`${details.kms} km`
+								) : (
+									`${(details.kms * 0.621371).toFixed(2)} mi`
+								)
+							}
 						</span>
 					</b>
 					<br />
 					<b>
-					Estimated time:{" "}
+						Estimated time:{" "}
 						<span style={{ color: setColor(details.minutes) }}>
 							{convertMinutesHours(details.minutes)}
 						</span>{" "}
@@ -83,3 +89,12 @@ export const DetailsRoute = () => {
 		<></>
 	);
 };
+
+/**
+ * !Documentation
+ * @description: This code defines a React functional component called DetailsRoute 
+ * that displays trip details in an accordion format. It uses the MapContext to access 
+ * the trip details. The component calculates the color for the distance and estimated 
+ * time based on certain conditions. It also includes a helper function to convert 
+ * minutes to hours and minutes format.
+ *  */

@@ -5,10 +5,9 @@ import { HomeScreen } from "./screens";
 export const MapsApp = () => {
 	if (!navigator.geolocation) {
 		return (
-			<ModalError label="Tu Navegador no tiene opcion de geolocalización" />
+			<ModalError label="Your browser does not have a geolocation option." />
 		);
 	}
-
 	return (
 		<PlacesProvider>
 			<MapProvider>

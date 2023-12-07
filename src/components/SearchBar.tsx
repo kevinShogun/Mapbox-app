@@ -20,7 +20,6 @@ export const SearchBar = () => {
 		}
 
 		debounceRef.current = setTimeout(() => {
-			// todo: Ejecutar consulta
 			searchPlacesByQuery(e.target.value);
 		}, 900);
 	};
@@ -29,11 +28,11 @@ export const SearchBar = () => {
 		<Box
 			sx={{
 				position: "fixed",
-				top: "50px",
+				top: "75px",
 				right: "30px",
 				"@media (max-width: 600px)": {
-					top: "20px",
-					right: "10px",
+					top: "70px",
+					right: "20px",
 				},
 				boxShadow: places.length > 0 ? "0px 5px 10px rgba(0, 0, 0, 0.2)" : "",
 				borderRadius: places.length > 0 ? "10px" : "",

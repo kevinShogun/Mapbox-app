@@ -1,12 +1,13 @@
 import { useContext, useState } from 'react'
-import { Box, Typography, Slider, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import { Box, Typography, Slider, Select, MenuItem, FormControl, InputLabel, Button } from "@mui/material";
 import { MapContext } from '../context';
 
 export const SliderOptions = () => {
 
-    const { markerRadius, setMarkerRadius } = useContext(MapContext);
+    const { markerRadius, setMarkerRadius, typeDistance, setTypeDistance} = useContext(MapContext);
     const [raduisValue, setRaduisValue] = useState<number | undefined>(markerRadius);
     const [sliderValue, setSliderValue] = useState<number | number[] | undefined>();
+    
 
     const handleChangeSelect = (e: any) => {
         setRaduisValue(Number(e.target.value));
@@ -29,12 +30,49 @@ export const SliderOptions = () => {
                     flexDirection: "column",
                 },
                 backgroundColor: '#fff',
-                padding: '10px',
+                padding: '5px',
                 borderRight: "2px solid #c7d4dc",
                 borderBottom: "2px solid #c7d4dc",
                 borderLeft: "2px solid #c7d4dc",
             }}
         >
+            <Box
+					sx={{
+						display: "flex",
+						justifyContent: "space-between",
+						alignItems: "center",
+						border: "1px solid #ccc",
+						padding: "0.2rem",
+						gap: "0.5rem",
+						borderRadius: "5px",
+                        'media (max-width: 600px)': {
+                            width: '100%',
+                        }
+					}}
+				>
+					<Button
+						sx={{ flex: "1", boxShadow: "none"}}
+						variant={typeDistance === 'km' ? 'contained' : 'text'}
+                        color={typeDistance === 'km' ? 'primary':  'secondary' }
+						onClick={(e) => {
+							e.stopPropagation();
+							setTypeDistance('km');
+						}}
+					>
+					    Km
+					</Button>
+					<Button
+						sx={{ flex: "1", boxShadow: "none"}}
+						variant={typeDistance === 'mi' ? 'contained' : 'text'}
+                        color={typeDistance === 'mi' ? 'primary':  'secondary' }
+						onClick={(e) => {
+							e.stopPropagation();
+                            setTypeDistance('mi');
+						}}
+					>
+						Mi
+					</Button>
+				</Box>
             <Box
                 display='flex'
                 flexDirection='column'
@@ -47,7 +85,6 @@ export const SliderOptions = () => {
                         color='secondary'
                         sx={{
                             color: "#c7d4dc",
-                            marginBottom: "10px",
                         }}
                     >
                         Preset Radius
@@ -73,10 +110,10 @@ export const SliderOptions = () => {
 
                         }}
                     >
-                        <MenuItem value={1}> 1 km </MenuItem>
-                        <MenuItem value={5}> 5 km </MenuItem>
-                        <MenuItem value={15}> 15 km </MenuItem>
-                        <MenuItem value={25}> 25 km </MenuItem>
+                        <MenuItem value={1}> 1 {typeDistance} </MenuItem>
+                        <MenuItem value={5}> 5 {typeDistance} </MenuItem>
+                        <MenuItem value={15}> 15 {typeDistance} </MenuItem>
+                        <MenuItem value={25}> 25 {typeDistance} </MenuItem>
                     </Select>
                 </FormControl>
 
@@ -125,13 +162,21 @@ export const SliderOptions = () => {
                     width='100%'
                 >
                     <Typography variant='body2' sx={{ fontWeight: 500, color: "#515d67" }}>
-                        10 km
+                        10 {typeDistance}
                     </Typography>
-                    <Typography variant='body2' sx={{ fontWeight: 500, color: "#515d67" }}>
-                        1000 km
+                    <Typography variant='body2' sx={{ fontWeight: 500, color: "#515d67", }}>
+                        1000 {typeDistance}
                     </Typography>
                 </Box>
             </Box>
         </Box>
     )
 }
+/**
+ * !Documentation
+ * @description: This code defines a React functional component called SliderOptions 
+ * that renders a slider and a select dropdown. The component uses the useContext and 
+ * useState hooks from the React library to manage state. 
+ * It also imports various components from the Material-UI library for styling and 
+ * user interface elements.
+ *  */

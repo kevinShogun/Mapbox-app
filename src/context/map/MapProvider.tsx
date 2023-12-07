@@ -12,8 +12,8 @@ interface MapProviderProps {
 
 
 export interface Details {
-    kms: number;
-    minutes: number;
+	kms: number;
+	minutes: number;
 	isShow: boolean;
 }
 
@@ -23,12 +23,14 @@ export interface MapState {
 	markers: Marker[];
 	details: Details;
 	markerRadius: number;
+	typeDistance: 'km' | 'mi';
 }
 
 const INITIAL_STATE: MapState = {
 	isMapReady: false,
 	map: undefined,
 	markers: [],
+	typeDistance: 'km',
 	markerRadius: 5,
 	details: {
 		kms: 0,
@@ -36,6 +38,8 @@ const INITIAL_STATE: MapState = {
 		isShow: false,
 	}
 };
+
+
 
 export const MapProvider = ({ children }: MapProviderProps) => {
 	const [state, dispatch] = useReducer(mapReducer, INITIAL_STATE);
@@ -45,12 +49,12 @@ export const MapProvider = ({ children }: MapProviderProps) => {
 		state.markers.forEach((m) => m.remove());
 		const newMarkers: Marker[] = [];
 
-		if(places.length <= 0){
+		if (places.length <= 0) {
 			dispatch({
 				type: "setMarkers",
 				payload: [],
 			});
-			if(state.map?.getLayer('RouteString')){
+			if (state.map?.getLayer('RouteString')) {
 				state.map?.removeLayer('RouteString');
 				state.map?.removeSource('RouteString');
 			}
@@ -59,16 +63,18 @@ export const MapProvider = ({ children }: MapProviderProps) => {
 				payload: {
 					kms: 0,
 					minutes: 0,
-					isShow: false				
+					isShow: false
 				},
 			});
 		}
-		
+
 
 		for (const p of places) {
 			const [lng, lat] = p.center;
 			const popup = new Popup().setHTML(`
-				<h3> ${p.text}</h3>
+				<h3 style="font-family: 'Monserrat', Geneva, Tahoma, sans-serif; color: #525e68;">
+					${p.text}
+				</h3>
 				<p>${p.place_name}</p>
 			`);
 
@@ -88,8 +94,8 @@ export const MapProvider = ({ children }: MapProviderProps) => {
 
 	const setMap = (map: Map) => {
 		const myLocationPopup = new Popup().setHTML(`
-			<h4> Aqui estoy</h4>
-			<p>mi ubicacion</p>
+			<h3> I am here</h3>
+			<p>My location</p>
 		`);
 
 		new Marker()
@@ -118,18 +124,18 @@ export const MapProvider = ({ children }: MapProviderProps) => {
 		kms /= 100;
 
 		let minutes = Math.floor(duration / 60);
-		
+
 		console.table({
 			kms,
 			minutes
 		})
-		
+
 		dispatch({
 			type: "setDetails",
 			payload: {
 				kms,
 				minutes,
-				isShow: true				
+				isShow: true
 			},
 		});
 
@@ -161,7 +167,7 @@ export const MapProvider = ({ children }: MapProviderProps) => {
 			}
 		}
 
-		if(state.map?.getLayer('RouteString')){
+		if (state.map?.getLayer('RouteString')) {
 			state.map?.removeLayer('RouteString');
 			state.map?.removeSource('RouteString');
 		}
@@ -189,12 +195,20 @@ export const MapProvider = ({ children }: MapProviderProps) => {
 		});
 	};
 
+	const setTypeDistance = (type: 'km' | 'mi') => {
+		dispatch({
+			type: "setTypeDistance",
+			payload: type,
+		});
+	}
+
 	return (
 		<MapContext.Provider
 			value={{
 				...state,
 				setMap,
 				setMarkerRadius,
+				setTypeDistance,
 				getRouteBetweenPoints,
 			}}
 		>
@@ -202,3 +216,16 @@ export const MapProvider = ({ children }: MapProviderProps) => {
 		</MapContext.Provider>
 	);
 };
+
+
+/**
+ // ! Documentation
+ * @description: The MapProvider function is a React component that provides a map and 
+ * related functionalities to its child components. It uses the useReducer 
+ * hook to manage the state of the map and markers. It also uses the useContext
+ *  hook to access the PlacesContext and share the map state with other 
+ * components. The function includes an effect that updates the markers on 
+ * the map whenever the places array changes. It also provides functions to 
+ * set the map, get the route between two points, and set the marker radius
+ * 
+*/

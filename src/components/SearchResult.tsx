@@ -214,3 +214,13 @@ export const SearchResult = () => {
 		</div>
 	);
 };
+
+/**
+ * !DOCUMENTATION
+ * @description: This code defines a React functional component called SearchResult 
+ * that displays a list of places and allows the user to select a place or get 
+ * directions to it. The component uses the useContext hook to access the 
+ * PlacesContext and MapContext contexts, which provide information about 
+ * the places and the map. It also uses the useState and useEffect 
+ * hooks to manage the state of the component.
+ * */

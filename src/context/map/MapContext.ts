@@ -12,6 +12,8 @@ interface MapContextProp {
     details: Details;
     markerRadius: number;
     setMarkerRadius: (radius: number) => void;
+    typeDistance: 'km' | 'mi';
+    setTypeDistance: (type: 'km' | 'mi') => void;
 }
 
 export const MapContext = createContext({} as MapContextProp);

@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Accord Alternate';
+    src: local('Accord Alternate Extra Bold'), local('Accord-Alternate-Extra-Bold'),
+        url('AccordAlternate-ExtraBold.woff2') format('woff2'),
+        url('AccordAlternate-ExtraBold.woff') format('woff'),
+        url('AccordAlternate-ExtraBold.ttf') format('truetype');
+  }

@@ -6,7 +6,9 @@ type MapAction =
 	| { type: "setMap"; payload: Map }
 	| { type: "setMarkers"; payload: Marker[] }
 	| { type: "setDetails"; payload: Details }
+	| { type: "setTypeDistance"; payload: 'km' | 'mi' }
 	| { type: "setMarkerRadius"; payload: number};
+
 
 export const mapReducer = (state: MapState, action: MapAction): MapState => {
 	switch (action.type) {
@@ -25,6 +27,11 @@ export const mapReducer = (state: MapState, action: MapAction): MapState => {
 			return {
 				...state,
 				details: action.payload,
+			};
+		case "setTypeDistance":
+			return {
+				...state,
+				typeDistance: action.payload,
 			};
 		case "setMarkerRadius":
 			return {

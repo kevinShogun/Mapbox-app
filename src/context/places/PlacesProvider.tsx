@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import { searchApi, thisCountryApi } from "../../apis";
+import { searchApi } from "../../apis";
 import { ModalError } from "../../components";
 import { getUserLocation } from "../../helpers";
 import { getUserCountry } from "../../helpers/getUserCountry";
@@ -28,7 +28,6 @@ interface Props {
 export const PlacesProvider = ({ children }: Props) => {
 	const [state, dispatch] = useReducer(placesReducer, INITIAL_STATE);
 
-
 	useEffect(() => {
 		getUserLocation().then((coords) =>
 			dispatch({
@@ -49,7 +48,7 @@ export const PlacesProvider = ({ children }: Props) => {
 			return[]
 		}; 
 		if (!state.userLocation)
-			throw <ModalError label="El usuario no tiene locacion" />;
+			throw <ModalError label="The user has no location" />;
 
 		dispatch({ type: "setLoadingPlaces" });
 
@@ -59,10 +58,6 @@ export const PlacesProvider = ({ children }: Props) => {
 			},
 		});
 
-		
-		
-
-		// console.log(resp.data);
 		dispatch({
 			type: "setPlaces",
 			payload: resp.data.features,
@@ -82,3 +77,13 @@ export const PlacesProvider = ({ children }: Props) => {
 		</PlacesContext.Provider>
 	);
 };
+
+/***
+ * !Documentación de la API de Mapbox
+ * @description: The PlacesProvider function is a React component that provides a context for
+ *  managing places data. It uses the useReducer hook to manage the state of the 
+ * places data and dispatch actions to update the state. It also uses the useEffect
+ *  hook to fetch the user's location and country when the component mounts. 
+ * The function exposes a searchPlacesByQuery method that can be used to search 
+ * for places based on a query string.
+ */
